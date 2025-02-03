@@ -8,6 +8,16 @@
 
 {% block content %}
     <br/>
+    
+    <div class="container">
+    {% for message in messages%}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    
+    {%endfor%}
     <form method = "POST">
         {% csrf_token %}
         <div class="container">
@@ -16,6 +26,7 @@
         <button type="submit" class="btn btn-primary">Create task</button>
         </div>
     </form>
+</div>
     <br/>
 
     <div class= "container">
