@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Todo list - Manager</title>
+{% endblock title %}
+
+
+
+{% block content %}
+    <br/>
+    <form method = "POST">
+        {% csrf_token %}
+        <div class="container">
+        <input type="text" class="form-control" placeholder="Enter the task" name="task">
+        <br/>
+        <button type="submit" class="btn btn-primary">Create task</button>
+        </div>
+    </form>
+    <br/>
+
+    <div class= "container">
+        <table class="table table-bordered" >
+            <thead class="table table-dark"  >
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Done</th>
+                  </tr>
+            </thead>
+            
+            <tbody class="table-group-divider">
+                {% for obj in all_tasks %}
+                    {% if obj.done%}
+                        <tr class="table table-success">
+                            <th scope="row">{{obj.id}}</th>
+                            <td>{{obj.task}}</td>
+                            <td>Completed</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th scope="row">{{obj.id}}</th>
+                            <td>{{obj.task}}</td>
+                            <td>Not Completed</td>
+                        </tr>
+                    {% endif %}
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
