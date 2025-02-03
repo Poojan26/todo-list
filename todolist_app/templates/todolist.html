@@ -10,53 +10,71 @@
     <br/>
     
     <div class="container">
-    {% for message in messages%}
-    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-        {{message}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    {% if messages%}
+        {% for message in messages%}
+        
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
     
     
-    {%endfor%}
-    <form method = "POST">
+        {%endfor%}
+    {% endif %}
+    
+
+    <form method="POST" class="row align-items-center g-2"> 
         {% csrf_token %}
-        <div class="container">
-        <input type="text" class="form-control" placeholder="Enter the task" name="task">
-        <br/>
-        <button type="submit" class="btn btn-primary">Create task</button>
+    
+        <!-- Label with Auto-Sized Column -->
+        <label class="col-lg-4 col-form-label">Any new tasks for today?</label>
+    
+        <!-- Input Field Wrapped in a Column -->
+        <div class="col-md-6 col-lg-6">
+            <input type="text" class="form-control" placeholder="Enter the task" name="task">
+        </div>
+    
+        <!-- Button with Auto Width -->
+        <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary w-auto text-nowrap">Create task</button>
         </div>
     </form>
-</div>
+
     <br/>
 
-    <div class= "container">
-        <table class="table table-bordered" >
-            <thead class="table table-dark"  >
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Done</th>
-                  </tr>
-            </thead>
-            
-            <tbody class="table-group-divider">
+    <table class="table table-bordered" >
+        <thead class="table table-dark"  >
+            <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Done</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                </tr>
+        </thead>
+
+        
+        
+        <tbody class="table-group-divider">
+            {% if all_tasks%}
                 {% for obj in all_tasks %}
                     {% if obj.done%}
                         <tr class="table table-success">
-                            <th scope="row">{{obj.id}}</th>
-                            <td>{{obj.task}}</td>
+                            <td>{{obj.id}} | {{obj.task}}</td>
                             <td>Completed</td>
+                            <td>Edit</td>
+                            <td><a href="{% url 'delete_task' obj.id %}">Delete</a></td>
                         </tr>
                     {% else %}
                         <tr>
-                            <th scope="row">{{obj.id}}</th>
-                            <td>{{obj.task}}</td>
+                            <td>{{obj.id}} | {{obj.task}}</td>
                             <td>Not Completed</td>
+                            <td>Edit</td>
+                            <td><a href="{% url 'delete_task' obj.id %}">Delete</a></td>
                         </tr>
                     {% endif %}
-                    
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}
