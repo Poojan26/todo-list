@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Edit Task - Taskmate</title>
+{% endblock title %}
+
+
+{% block content %}
+    <div class= "container">
+        <br/>
+        <form method="POST" class="row align-items-center g-2"> 
+            {% csrf_token %}
+        
+            <!-- Label with Auto-Sized Column -->
+            <label class="col-lg-2 col-form-label"></label>
+        
+            <!-- Input Field Wrapped in a Column -->
+            <div class="col-md-6 col-lg-6">
+                <input type="text" class="form-control" placeholder="{{task_obj.task}}" value="{{task_obj.task}}" name="task">
+            </div>
+        
+            <!-- Button with Auto Width -->
+            <div class="col-lg-2">
+                <button type="submit" class="btn btn-primary w-auto text-nowrap">Update</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
