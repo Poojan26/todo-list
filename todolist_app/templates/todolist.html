@@ -27,11 +27,11 @@
         {% csrf_token %}
     
         <!-- Label with Auto-Sized Column -->
-        <label class="col-lg-4 col-form-label">Any new tasks for today?</label>
+        <label class="col-lg-4 col-form-label"></label>
     
         <!-- Input Field Wrapped in a Column -->
         <div class="col-md-6 col-lg-6">
-            <input type="text" class="form-control" placeholder="Enter the task" name="task">
+            <input type="text" class="form-control" placeholder="New task?" name="task">
         </div>
     
         <!-- Button with Auto Width -->
@@ -60,14 +60,14 @@
                     {% if obj.done%}
                         <tr class="table table-success">
                             <td>{{obj.id}} | {{obj.task}}</td>
-                            <td>Completed</td>
+                            <td><a href="{% url 'pending_task' obj.id %}" style="text-decoration: none;">Mark this as pending</a></td>
                             <td><a href="{% url 'edit_task' obj.id %}" style="text-decoration: none;">Edit</a></td>
                             <td><a href="{% url 'delete_task' obj.id %}" style="text-decoration: none;">Delete</a></td>
                         </tr>
                     {% else %}
                         <tr>
                             <td>{{obj.id}} | {{obj.task}}</td>
-                            <td>Not Completed</td>
+                            <td><a href="{% url 'complete_task' obj.id %}" style="text-decoration: none;">Mark this as complete</a></td>
                             <td><a href="{% url 'edit_task' obj.id %}" style="text-decoration: none;">Edit</a></td>
                             <td><a href="{% url 'delete_task' obj.id %}" style="text-decoration: none;">Delete</a></td>
                         </tr>
