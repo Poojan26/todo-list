@@ -59,7 +59,7 @@
                 {% for obj in all_tasks %}
                     {% if obj.done%}
                         <tr class="table-success row">
-                            <td class="col-7">{{obj.task}}</td>
+                            <td class="col-7"><del>{{obj.task}}</del></td>
                             <td class="col-3"><a href="{% url 'pending_task' obj.id %}" style="text-decoration: none;"><button type="button" class="btn btn-dark">Mark this as pending</button></a></td>
                             <td class="col-1"><a href="{% url 'edit_task' obj.id %}"><button type="button" class="btn btn-warning" style="background-color: #ffc107; color: black;">Edit</button></a></td>
                             <td class="col-1"><a href="{% url 'delete_task' obj.id %}"><button type="button" class="btn btn-danger" style="background-color: #dc3545; color: white;">Delete</button></a></td>

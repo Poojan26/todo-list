@@ -55,6 +55,17 @@
           </ul>
         </div>
       </div>
+      {% if user.is_authenticated %}
+      <!-- Logout Form -->
+      <form action="{% url 'logout' %}" method="post" class="form-inline my-2 my-lg-0">
+        {% csrf_token %}
+        <p class="text-body-secondary">{{ user.username }}</p>
+        
+        <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
+      {%else%}
+        <p class="text-body-secondary"> Logged out </p>
+      {%endif%}
     </nav>
   </head>
   <body class="bg-light">
