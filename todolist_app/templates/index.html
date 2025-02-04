@@ -24,8 +24,16 @@
             <center><p class="h1">Quick and Easy to use</p></center>
             <center><p class="h2 mt-3" >"Plan your day better, Get your life organized!"</p></center>
             <center><p class="h5">Taskmate lets you keep all your tasks in one place.</p></center>
+
+            {% if user.is_authenticated%}
+                <center><a href="{% url 'todolist' %}"><button type="button" class="btn btn-primary btn-lg mt-3 shadow">Get started!</button></a></center>
+            {% else %}
             
-            <center><a href="{% url 'todolist' %}"><button type="button" class="btn btn-primary btn-lg mt-3 shadow">Get started!</button></a></center>
+            
+            <center><p class="h5 mt-4">Login/Register to get started! </p></center>
+            {%endif%}
+            
+            
         </div>
     </div>
 {% endblock content %}
