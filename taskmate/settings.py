@@ -125,6 +125,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
+LOGIN_REDIRECT_URL = 'todolist'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
