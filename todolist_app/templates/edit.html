@@ -8,22 +8,28 @@
 {% block content %}
     <div class= "container">
         <br/>
-        <form method="POST" class="row align-items-center g-2"> 
-            {% csrf_token %}
-        
-            <!-- Label with Auto-Sized Column -->
-            <label class="col-lg-2 col-form-label"></label>
-        
-            <!-- Input Field Wrapped in a Column -->
-            <div class="col-md-6 col-lg-6">
-                <input type="text" class="form-control" placeholder="{{task_obj.task}}" value="{{task_obj.task}}" name="task">
-                <input type="hidden" class="form-control" placeholder="{{task_obj.done}}" value="{{task_obj.done}}" name="done">
-            </div>
-        
-            <!-- Button with Auto Width -->
-            <div class="col-lg-2">
-                <button type="submit" class="btn btn-primary w-auto text-nowrap">Update</button>
-            </div>
-        </form>
-    </div>
+
+        {% if task_obj.manage == request.user %}
+            <form method="POST" class="row align-items-center g-2"> 
+                {% csrf_token %}
+            
+                <!-- Label with Auto-Sized Column -->
+                <label class="col-lg-2 col-form-label"></label>
+            
+                <!-- Input Field Wrapped in a Column -->
+                <div class="col-md-6 col-lg-6">
+                    <input type="text" class="form-control" placeholder="{{task_obj.task}}" value="{{task_obj.task}}" name="task">
+                    <input type="hidden" class="form-control" placeholder="{{task_obj.done}}" value="{{task_obj.done}}" name="done">
+                </div>
+            
+                <!-- Button with Auto Width -->
+                <div class="col-lg-2">
+                    <button type="submit" class="btn btn-primary w-auto text-nowrap">Update</button>
+                </div>
+            </form>
+        {% else %}
+            <p> Not authorized - You cannot access this page </p>
+        {% endif %}    
+        </div>
+
 {% endblock content %}

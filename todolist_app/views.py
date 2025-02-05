@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
+
 @login_required
 def todolist(request):
     
@@ -30,7 +31,10 @@ def todolist(request):
 
 def delete_task(request,task_id):
     task = TaskList.objects.get(pk=task_id)
-    task.delete()
+    if task.manage == request.user:
+        task.delete()
+    else:
+        messages.error(request,("Access denied- You cannot delete any info provided by another user"))
     return redirect('todolist')
 
 def edit_task(request,task_id):
@@ -48,17 +52,29 @@ def edit_task(request,task_id):
         task_obj = TaskList.objects.get(pk=task_id)
         return render(request,'edit.html',{'task_obj':task_obj})
 
+@login_required
 def complete_task(request,task_id):
     task = TaskList.objects.get(pk=task_id)
-    task.done = True
-    task.save()
-    return redirect(request.META['HTTP_REFERER'])
+    if task.manage == request.user:
+        task.done = True
+        task.save()
+        return redirect(request.META['HTTP_REFERER'])
+    else:
+        messages.error(request,("Access Denied- You are not authorized to access this page"))
+        return redirect('todolist')
+        
+    
 
 def pending_task(request,task_id):
     task = TaskList.objects.get(pk=task_id)
-    task.done = False
-    task.save()
-    return redirect(request.META['HTTP_REFERER'])
+    if task.manage == request.user:
+        task.done = False
+        task.save()
+        return redirect(request.META['HTTP_REFERER'])
+    else:
+        messages.error(request,("Access Denied- You are not authorized to access this page"))
+        return redirect('todolist')
+        
 
 def index(request):
     context = {
